@@ -5,8 +5,8 @@ USE Library;
 
 DROP TABLE IF EXISTS BOOK;
 CREATE TABLE BOOK (
-    isbn        varchar(13) not null,
-    title       varchar(40) not null,
+    isbn        varchar(10) not null,
+    title       varchar(99) not null,
     CONSTRAINT pk_book PRIMARY KEY (isbn),
     CONSTRAINT uk_isbn UNIQUE (isbn)
 );
@@ -14,14 +14,14 @@ CREATE TABLE BOOK (
 DROP TABLE IF EXISTS AUTHORS;
 CREATE TABLE AUTHORS(
     author_id   varchar(10) not null,
-    name        varchar(20) not null,
+    name        varchar(40) not null,
     CONSTRAINT pk_authors PRIMARY KEY (author_id)
 );
 
 DROP TABLE IF EXISTS BOOK_AUTHORS;
 CREATE TABLE BOOK_AUTHORS(
     author_id   varchar(10) not null,
-    isbn        varchar(13) not null,
+    isbn        varchar(10) not null,
     CONSTRAINT pk_book_authors PRIMARY KEY (author_id,isbn),
     CONSTRAINT fk_book_authors_authors FOREIGN KEY (author_id) REFERENCES AUTHORS(author_id),
     CONSTRAINT fk_book_authors_book FOREIGN KEY (isbn) REFERENCES BOOK(isbn)
@@ -32,7 +32,7 @@ CREATE TABLE BORROWER(
     card_id     varchar(6) not null,
     ssn         varchar(11) not null,
     bname       varchar(20) not null,
-    address     varchar(40),
+    address     varchar(40) not null,
     phone       varchar(15),
     CONSTRAINT pk_borrower PRIMARY KEY (card_id)
 );
@@ -40,7 +40,7 @@ CREATE TABLE BORROWER(
 DROP TABLE IF EXISTS BOOK_LOANS;
 CREATE TABLE BOOK_LOANS(
     loan_id     varchar(10) not null,
-    isbn        varchar(13) not null,
+    isbn        varchar(10) not null,
     card_id     varchar(6),
     date_out    date not null,
     due_date    date not null,
