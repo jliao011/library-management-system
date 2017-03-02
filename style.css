@@ -1,3 +1,52 @@
 header{
 	text-align: center;
+	border: 2px solid black;
+	height: 120px;
+	padding: 0px;
+	margin: 10px 0px;
 }
+header ul{
+	padding: 0px;
+	margin: 0px 20px;
+	float: left;
+}
+header li{
+	background-color: white;
+	width: 180px;
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	border: 2px solid black;
+	margin: 0px;
+}
+body{
+	background-color: lightgray;
+}
+
+div.main{
+
+	border: 2px solid black;
+	padding: 10px;
+	margin: 10px 0px;
+}
+
+div.message{
+	border: 1px solid black;
+	max-height: 200px;
+	overflow: scroll;
+}
+
+#searchblock{
+	text-align: center;
+	margin: 10px 0px;
+	width: 100%;
+}
+#searchblock input,#searchblock button{
+	text-align: center;
+	font-size: large;
+	font-weight: bold;
+}
+
+
+
+

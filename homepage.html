@@ -9,14 +9,43 @@
 <body>
 	<header>
 		<h1>Library Management System</h1>
+		<ul>
+			<li class="home">home</li>
+			<li class="booksearch">book search</li>
+			<li class="bookloans">book loans</li>
+			<li class="borrower">borrower</li>
+			<li class="fines">fines</li>
+		</ul>
 	</header>
 
 	<div id="main">
-		<button type="button" value="loadData">load data</button>
-		<div id="message"></div>
-		<div id="booklist">
-			<h2>book shows here:</h2>
+	<button type="button" value="test">test link</button><div id="testdiv"></div>
+		<div class="main" id="home">
+			<h2>home page</h2>
+			<button type="button" value="loadData">load data</button>
+			<div class="message"></div>			
 		</div>
+
+		<div class="main" id="booksearch">
+			<h2>book search</h2>
+			<div id="searchblock">
+				<h3>Input ISBN, title, and/ or Author(s) to search:<br/></h3>
+				<input type="text" name="searchbar" style="width: 80%;">
+				<button value="search">Search</button>				
+			</div>
+			<div class="message"></div>
+		</div>
+		<div class="main" id="bookloans">
+			<h2>book loans</h2>
+		</div>
+		<div class="main" id="borrower">
+			<h2>borrower</h2>
+		</div>
+		<div class="main" id="fines">
+			<h2>fines</h2>
+		</div>
+
+
 		
 	</div>
 	<footer></footer>

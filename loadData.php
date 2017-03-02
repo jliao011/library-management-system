@@ -1,7 +1,7 @@
 <?php
 	$mysql = mysqli_connect("localhost:8889","root","root","Library");
 	if (mysqli_connect_errno()){
-		echo "Failed to connect to MySQL: ".mysqli_connect_error()."\n";
+		echo "Failed to connect to MySQL: ".mysqli_connect_error()."<br/>";
 	}
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
@@ -15,7 +15,7 @@
 
 		$insert_book = "INSERT INTO BOOK VALUES ('$isbn','$title');";
 		if (!mysqli_query($mysql,$insert_book)) {
-			echo "Error: ".$insert_book.mysqli_error($mysql)."\n";
+			echo "Error: ".$insert_book.mysqli_error($mysql)."<br/>";
 		}
 
 		if (strpos($authors,'&amp;') !== false) {
@@ -35,22 +35,22 @@
 				$row = mysqli_fetch_array($result);
 				$insert_book_authors = "INSERT IGNORE INTO BOOK_AUTHORS VALUES ($row[0],'$isbn');";
 				if (!mysqli_query($mysql,$insert_book_authors)) {
-					echo "Error: ".$insert_book_authors.mysqli_error($mysql)."\n";
+					echo "Error: ".$insert_book_authors.mysqli_error($mysql)."<br/>";
 				}	
 			}else{
 				$insert_author = "INSERT INTO AUTHORS VALUES ('$author_id','$author');";
 				if (!mysqli_query($mysql,$insert_author)) {
-					echo "Error: ".$insert_author.mysqli_error($mysql)."\n";
+					echo "Error: ".$insert_author.mysqli_error($mysql)."<br/>";
 				}
 				$insert_book_authors = "INSERT INTO BOOK_AUTHORS VALUES ('$author_id','$isbn');";
 				if (!mysqli_query($mysql,$insert_book_authors)) {
-					echo "Error: ".$insert_book_authors.mysqli_error($mysql)."\n";
+					echo "Error: ".$insert_book_authors.mysqli_error($mysql)."<br/>";
 				}	
 				$author_id++;
 			}
 		}
 	}
-	echo "Finished loading books.csv!\n";
+
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
 	$borrowers = fopen("borrowers.csv","r");
@@ -63,8 +63,18 @@
 		$phone = mysqli_real_escape_string($mysql,trim($data[8]));
 		$insert_borrower = "INSERT INTO BORROWER VALUES ('$card_id','$ssn','$bname','$address','phone');";
 		if (!mysqli_query($mysql,$insert_borrower)) {
-			echo "Error: ".$insert_borrower.mysqli_error($mysql)."\n";
+			echo "Error: ".$insert_borrower.mysqli_error($mysql)."<br/>";
 		}
 	}
-	echo "Finished loading borrowers.csv!\n";
+
+	$count_book = "SELECT COUNT(*) AS count FROM BOOK;";
+	$result = mysqli_query($mysql,$count_book);
+	$number = mysqli_fetch_array($result);
+	echo $number['count']." row(s) inserted to BOOK.<br/>";
+	
+	$count_borrower = "SELECT COUNT(*) AS count FROM BORROWER;";
+	$result = mysqli_query($mysql,$count_borrower);
+	$number = mysqli_fetch_array($result);
+	echo $number['count']." row(s) inserted to BORROWER.<br/>";
+
 ?>
