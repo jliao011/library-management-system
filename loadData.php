@@ -1,25 +1,31 @@
 <?php
 	$mysql = mysqli_connect("localhost:8889","root","root","Library");
 	if (mysqli_connect_errno()){
-		echo "Failed to connect to MySQL: ".mysqli_connect_error();
+		echo "Failed to connect to MySQL: ".mysqli_connect_error()."\n";
 	}
-
-
-
+	//////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////
 	$author_id = 0;
 	$books = fopen("books.csv","r");
 	$data = fgetcsv($books, 1000, "	");
 	while (($data = fgetcsv($books, 1000, "	")) !== FALSE) {
 		$isbn = mysqli_real_escape_string($mysql,trim($data[0]));
 		$title = mysqli_real_escape_string($mysql,trim($data[2]));
-		$authors = explode(",",trim($data[3]));
+		$authors = trim($data[3]);
 
 		$insert_book = "INSERT INTO BOOK VALUES ('$isbn','$title');";
 		if (!mysqli_query($mysql,$insert_book)) {
-		    echo "Error: ".$insert_book.mysqli_error($mysql)."\n";
+			echo "Error: ".$insert_book.mysqli_error($mysql)."\n";
 		}
 
-		// echo $isbn."<br>".$title."<br>";
+		if (strpos($authors,'&amp;') !== false) {
+			$authors = explode("&amp;",$authors);	
+		}elseif (strpos($authors,';') !== false) {
+			$authors = explode(";",$authors);
+		}else{
+			$authors = explode(",",$authors);
+		}
+
 		foreach ($authors as $author) {
 			$author = mysqli_real_escape_string($mysql,trim($author));
 			if($author == "" || strcasecmp($author, "(none)") == 0){continue;}
@@ -42,12 +48,23 @@
 				}	
 				$author_id++;
 			}
-
-			// echo mysqli_real_escape_string($mysql,$author)."<br>";
 		}
-
 	}
-	echo "Load books and borrowers successfully!"
-
-
+	echo "Finished loading books.csv!\n";
+	//////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////
+	$borrowers = fopen("borrowers.csv","r");
+	$data = fgetcsv($borrowers, 1000, ",");
+	while (($data = fgetcsv($borrowers, 1000, ",")) !== FALSE) {
+		$card_id = mysqli_real_escape_string($mysql,trim($data[0]));
+		$ssn = mysqli_real_escape_string($mysql,trim($data[1]));
+		$bname = mysqli_real_escape_string($mysql,trim($data[2].", ".$data[3]));
+		$address = mysqli_real_escape_string($mysql,trim($data[5].", ".$data[6].", ".$data[7]));
+		$phone = mysqli_real_escape_string($mysql,trim($data[8]));
+		$insert_borrower = "INSERT INTO BORROWER VALUES ('$card_id','$ssn','$bname','$address','phone');";
+		if (!mysqli_query($mysql,$insert_borrower)) {
+			echo "Error: ".$insert_borrower.mysqli_error($mysql)."\n";
+		}
+	}
+	echo "Finished loading borrowers.csv!\n";
 ?>
