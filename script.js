@@ -1,5 +1,6 @@
 $("document").ready(function(){
-
+	$("div.main").each(function(){$(this).hide();});
+	$("#home").show();
 	$("header li").on({
 		mouseenter: function(){
 			$(this).css({"background-color":"black","color":"white"});
@@ -10,6 +11,9 @@ $("document").ready(function(){
 		click: function(){
 			var li_class = $(this).attr('class');
 			$("div.main").each(function(){
+				$("div.message").text("");
+				$("div.result").text("");
+				$("div.main input").val("");
 				if($(this).attr('id') == li_class){
 					$(this).show();
 				}else{
@@ -20,13 +24,35 @@ $("document").ready(function(){
 	});
 
 	$("button[value=loadData]").click(function(){
-		loadData();
+		$.ajax({
+			url:"loadData.php",
+			success: function(response){
+				$("#home .message").append(response);
+			},
+			error: function(){
+				alert("Error: books not loaded.");
+			}
+		});
 	});
 
 	$("#booksearch button[value=search]").click(function(){
 		var content = $("#booksearch input").val();
-		$("#booksearch .message").append(content);
-		searchBook();
+		if(content != ""){
+			$.ajax({
+				url:"searchBook.php",
+				data: {data:content},
+				dataType: "json",
+				method: "post",
+				success: function(response){
+					$("#booksearch .message").html(response.error);
+					$("#booksearch .result").html(response.result);
+				},
+				error: function(){
+					alert("Error: books not loaded.");
+				}
+			});			
+		}
+
 	});
 
 
@@ -39,28 +65,6 @@ $("document").ready(function(){
 	});
 });
 
-function loadData(){
-	$.ajax({
-		url:"loadData.php",
-		success: function(response){
-			$("#home .message").append(response);
-		},
-		error: function(){
-			alert("Error: books not loaded.");
-		}
-	});
-}
 
-function searchBook(){
-	$.ajax({
-		url:"searchBook.php",
-		success: function(response){
-			$("#booksearch .message").append(response);
-		},
-		error: function(){
-			alert("Error: books not loaded.");
-		}
-	});
-}
 
 

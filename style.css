@@ -31,9 +31,9 @@ div.main{
 }
 
 div.message{
-	border: 1px solid black;
 	max-height: 200px;
 	overflow: scroll;
+	padding: 0px 5px;
 }
 
 #searchblock{
@@ -46,6 +46,17 @@ div.message{
 	font-size: large;
 	font-weight: bold;
 }
+#booksearch table,#booksearch td,#booksearch th{
+	text-align: center;
+	min-width: 100px;
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+#booksearch td{
+	padding: 5px 10px;
+}
+
+
 
 
 
