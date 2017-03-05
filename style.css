@@ -46,16 +46,22 @@ div.message{
 	font-size: large;
 	font-weight: bold;
 }
-#booksearch table,#booksearch td,#booksearch th{
+table,td,th{
 	text-align: center;
 	min-width: 100px;
 	border-collapse: collapse;
 	border: 1px solid black;
 }
-#booksearch td{
+td{
 	padding: 5px 10px;
 }
-
+.input span,.input input, .input button{
+	display: inline-block;
+	width: 150px;
+	text-align: center;
+	font-size: large;
+	font-weight: bold;
+}
 
 
 

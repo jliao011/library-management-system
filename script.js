@@ -23,7 +23,7 @@ $("document").ready(function(){
 		}
 	});
 
-	$("button[value=loadData]").click(function(){
+	$("#home button.submit").click(function(){
 		$.ajax({
 			url:"loadData.php",
 			success: function(response){
@@ -35,7 +35,7 @@ $("document").ready(function(){
 		});
 	});
 
-	$("#booksearch button[value=search]").click(function(){
+	$("#booksearch button.submit").click(function(){
 		var content = $("#booksearch input").val();
 		if(content != ""){
 			$.ajax({
@@ -52,15 +52,59 @@ $("document").ready(function(){
 				}
 			});			
 		}
+	});
+
+	$("#borrower button.submit").click(function(){
+		var firstname = $("#borrower input[name='firstname']").val().trim();
+		var lastname = $("#borrower input[name='lastname']").val().trim();
+		var ssn = $("#borrower input[name='ssn']").val().trim();
+		var street = $("#borrower input[name='street']").val().trim();
+		var city = $("#borrower input[name='city']").val().trim();
+		var state = $("#borrower input[name='state']").val().trim();
+		var phone = $("#borrower input[name='phone']").val().trim();
+		var error = "Error: ";
+		if(firstname == "" || lastname == ""){
+			error += "Enter your full name. ";
+		}
+		if(ssn == ""){
+			error += "Enter your ssn. ";
+		}else if(!ssn.match(/^[0-9]{3}-[0-9]{2}-[0-9]{4}$/)){
+			error += "Enter your ssn as XXX-XX-XXXX. "
+		}
+		if(street == "" || city == "" || state == ""){
+			error += "Enter your full address. "
+		}
+		if(phone != "" && !phone.match(/^\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}$/)){
+			error += "Enter your phone as (XXX) XXX-XXXX. ";
+		}else if(phone == ""){
+			phone = "NULL";
+		}
+		if(error != "Error: "){
+			$("#borrower .message").html(error);
+		}else{
+			var bname = firstname + ", " + lastname;
+			var address = street + ", " + city + ", " + state;
+			$.ajax({
+				url:"createBorrower.php",
+				data: {"ssn":ssn,"bname":bname,"address":address,"phone":phone},
+				method: "post",
+				success: function(response){
+					$("#borrower .message").html(response);
+				},
+				error: function(){
+					alert("Error: cannot link createBorrower.php.");
+				}
+			});	
+		}
+		
+
 
 	});
 
 
 
 
-
-
-	$("button[value=test]").click(function(){
+	$("button.test").click(function(){
 		$("#testdiv").text("success");
 	});
 });

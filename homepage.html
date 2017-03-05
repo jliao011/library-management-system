@@ -19,10 +19,10 @@
 	</header>
 
 	<div id="main">
-	<button type="button" value="test">test link</button><div id="testdiv"></div>
+	<button type="button" class="test">test link</button><div id="testdiv"></div>
 		<div class="main" id="home">
 			<h2>home page</h2>
-			<button type="button" value="loadData">load data</button>
+			<button type="button" class="submit">load data</button>
 			<hr/><div class="message"></div><hr/>		
 		</div>
 
@@ -31,7 +31,7 @@
 			<div id="searchblock">
 				<h3>Input ISBN, title, and/ or Author(s) separated by '*' to search:<br/></h3>
 				<input type="text" name="searchbar" style="width: 80%;">
-				<button value="search">Search</button>				
+				<button class="submit">Search</button>				
 			</div>
 			<hr/><div class="message"></div><hr/>
 			<div class="result"></div>
@@ -42,6 +42,19 @@
 		</div>
 		<div class="main" id="borrower">
 			<h2>borrower</h2>
+			<h3>Create a new borrower:</h3>
+			<hr/><div class="message"></div><hr/>
+			<div class="input">
+				<span>First Name: </span><input type="text" name="firstname">
+				<span>Last Name: </span><input type="text" name="lastname"><br/>
+				<span>SSN: </span><input type="text" name="ssn" style="width: 460px"><br/>
+				<span>Street: </span><input type="text" name="street" style="width: 460px"><br/>
+				<span>City: </span><input type="text" name="city">
+				<span>State: </span><input type="text" name="state"><br/>
+				<span>Phone: </span><input type="text" name="phone" style="width: 200px"><br/>
+				<br/><button class="submit">Submit</button>
+			</div>
+
 		</div>
 		<div class="main" id="fines">
 			<h2>fines</h2>

@@ -61,7 +61,7 @@
 		$bname = mysqli_real_escape_string($mysql,trim($data[2].", ".$data[3]));
 		$address = mysqli_real_escape_string($mysql,trim($data[5].", ".$data[6].", ".$data[7]));
 		$phone = mysqli_real_escape_string($mysql,trim($data[8]));
-		$insert_borrower = "INSERT INTO BORROWER VALUES ('$card_id','$ssn','$bname','$address','phone');";
+		$insert_borrower = "INSERT INTO BORROWER VALUES ('$card_id','$ssn','$bname','$address','$phone');";
 		if (!mysqli_query($mysql,$insert_borrower)) {
 			echo "Error: ".$insert_borrower.mysqli_error($mysql)."<br/>";
 		}
