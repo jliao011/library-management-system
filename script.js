@@ -1,26 +1,28 @@
 $("document").ready(function(){
 	$("div.main").each(function(){$(this).hide();});
 	$("#home").show();
-	$("header li").on({
+	$(".manu li").on({
 		mouseenter: function(){
 			$(this).css({"background-color":"black","color":"white"});
 		},
 		mouseleave: function(){
 			$(this).css({"background-color":"white","color":"black"});
-		},
-		click: function(){
-			var li_class = $(this).attr('class');
-			$("div.main").each(function(){
-				$("div.message").text("");
-				$("div.result").text("");
-				$("div.main input").val("");
-				if($(this).attr('id') == li_class){
-					$(this).show();
-				}else{
-					$(this).hide();
-				}
-			});
 		}
+
+	});
+
+	$("header li").click(function(){
+		var li_class = $(this).attr('class');
+		$("div.main").each(function(){
+			$("div.message").text("");
+			$("div.result").text("");
+			$("div.main input").val("");
+			if($(this).attr('id') == li_class){
+				$(this).show();
+			}else{
+				$(this).hide();
+			}
+		});
 	});
 
 	$("#home button.submit").click(function(){
@@ -96,10 +98,48 @@ $("document").ready(function(){
 				}
 			});	
 		}
-		
+
+	});
+
+
+	$("div.checkin").hide();
+	$("li.checkout").click(function(){
+		$("div.checkout").show();
+		$("div.checkin").hide();
+		$("#bookloans .message").html("");
+		$("#bookloans input").val("");
+	});
+	$("li.checkin").click(function(){
+		$("div.checkin").show();
+		$("div.checkout").hide();
+		$("#bookloans .message").html("");
+		$("#bookloans input").val("");
+	});
+
+	$("#bookloans button.submit").click(function(){
+		var isbn = $("#bookloans input[name='isbn']").val().trim();
+		var card_id = $("#bookloans input[name='card_id']").val().trim();
+		if(isbn == "" || card_id == ""){
+			$("#bookloans .message").html("Error: Please input isbn and card_id");
+		}else{
+			$.ajax({
+				url:"checkOut.php",
+				data: {"isbn":isbn,"card_id":card_id},
+				method: "post",
+				success: function(response){
+					$("#bookloans .message").html(response);
+				},
+				error: function(){
+					alert("Error: cannot link checkOut.php.");
+				}
+			});				
+		}
 
 
 	});
+
+
+
 
 
 

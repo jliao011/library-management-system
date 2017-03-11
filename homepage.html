@@ -9,22 +9,27 @@
 <body>
 	<header>
 		<h1>Library Management System</h1>
-		<ul>
-			<li class="home">home</li>
-			<li class="booksearch">book search</li>
-			<li class="bookloans">book loans</li>
-			<li class="borrower">borrower</li>
-			<li class="fines">fines</li>
-		</ul>
+		<div class="manu">
+			<ul>
+				<li class="home">home</li>
+				<li class="booksearch">book search</li>
+				<li class="bookloans">book loans</li>
+				<li class="borrower">borrower</li>
+				<li class="fines">fines</li>
+			</ul>			
+		</div>
+
 	</header>
 
 	<div id="main">
 	<button type="button" class="test">test link</button><div id="testdiv"></div>
+		
 		<div class="main" id="home">
 			<h2>home page</h2>
 			<button type="button" class="submit">load data</button>
 			<hr/><div class="message"></div><hr/>		
 		</div>
+
 
 		<div class="main" id="booksearch">
 			<h2>book search</h2>
@@ -37,9 +42,33 @@
 			<div class="result"></div>
 		</div>
 
+
 		<div class="main" id="bookloans">
 			<h2>book loans</h2>
+			<div class="manu">
+				<ul>
+					<li class="checkout">Check Out a Book</li>
+					<li class="checkin">Check In a Book</li>
+				</ul>				
+			</div>
+			<hr/><div class="message"></div><hr/>
+			<div class="checkout input">
+				<span>BOOK ISBN</span><input type="text" name="isbn"><br/>
+				<span>CARD ID</span><input type="text" name="card_id"><br/>
+				<br/>
+				<button type="button" class="submit">Submit</button>
+
+
+			</div>
+			<div class="checkin input" class="input">check in</div>
+
+
+
+
+
 		</div>
+
+
 		<div class="main" id="borrower">
 			<h2>borrower</h2>
 			<h3>Create a new borrower:</h3>
@@ -56,6 +85,8 @@
 			</div>
 
 		</div>
+
+
 		<div class="main" id="fines">
 			<h2>fines</h2>
 		</div>

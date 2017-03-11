@@ -5,12 +5,12 @@ header{
 	padding: 0px;
 	margin: 10px 0px;
 }
-header ul{
+.manu ul{
 	padding: 0px;
 	margin: 0px 20px;
-	float: left;
+
 }
-header li{
+.manu li{
 	background-color: white;
 	width: 180px;
 	display: inline-block;
