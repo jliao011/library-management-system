@@ -36,25 +36,26 @@ div.message{
 	padding: 0px 5px;
 }
 
-#searchblock{
+.searchbar{
 	text-align: center;
 	margin: 10px 0px;
 	width: 100%;
 }
-#searchblock input,#searchblock button{
+.searchbar input,.searchbar button{
 	text-align: center;
 	font-size: large;
 	font-weight: bold;
 }
 table,td,th{
 	text-align: center;
-	min-width: 100px;
+	min-width: 120px;
 	border-collapse: collapse;
 	border: 1px solid black;
 }
 td{
 	padding: 5px 10px;
 }
+
 .input span,.input input, .input button{
 	display: inline-block;
 	width: 150px;

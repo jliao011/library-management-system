@@ -54,6 +54,7 @@
 	    }
 	    $result .= "</tr>";
 	}
+	$result .= "</table>";
 
 	$error = mysqli_num_rows($book)." book(s) found.";
 	$message = array('error'=>$error,'result'=>$result);

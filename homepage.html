@@ -33,7 +33,7 @@
 
 		<div class="main" id="booksearch">
 			<h2>book search</h2>
-			<div id="searchblock">
+			<div class="searchbar">
 				<h3>Input ISBN, title, and/ or Author(s) separated by '*' to search:<br/></h3>
 				<input type="text" name="searchbar" style="width: 80%;">
 				<button class="submit">Search</button>				
@@ -57,10 +57,16 @@
 				<span>CARD ID</span><input type="text" name="card_id"><br/>
 				<br/>
 				<button type="button" class="submit">Submit</button>
-
-
 			</div>
-			<div class="checkin input" class="input">check in</div>
+			<div class="checkin searchbar">
+				<h3>Input ISBN, card ID, and/ or borrower name separated by '*' to search loans:<br/></h3>
+				<input type="text" name="searchbar" style="width: 80%;">
+				<button class="submit" value="search">Search</button><br/><br/>
+				<div class="result">
+					
+				</div>
+				<button type='button' class='submit' value='checkin'>Check In</button>
+			</div>
 
 
 
@@ -80,8 +86,9 @@
 				<span>Street: </span><input type="text" name="street" style="width: 460px"><br/>
 				<span>City: </span><input type="text" name="city">
 				<span>State: </span><input type="text" name="state"><br/>
-				<span>Phone: </span><input type="text" name="phone" style="width: 200px"><br/>
-				<br/><button class="submit">Submit</button>
+				<span>Phone: </span><input type="text" name="phone" style="width: 15b0px">
+				<span></span><span></span>
+				<br/><br/><button class="submit">Submit</button>
 			</div>
 
 		</div>

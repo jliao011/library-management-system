@@ -107,16 +107,18 @@ $("document").ready(function(){
 		$("div.checkout").show();
 		$("div.checkin").hide();
 		$("#bookloans .message").html("");
+		$("#bookloans .result").html("");
 		$("#bookloans input").val("");
 	});
 	$("li.checkin").click(function(){
 		$("div.checkin").show();
 		$("div.checkout").hide();
 		$("#bookloans .message").html("");
+		$("#bookloans .result").html("");
 		$("#bookloans input").val("");
 	});
 
-	$("#bookloans button.submit").click(function(){
+	$("#bookloans .checkout button.submit").click(function(){
 		var isbn = $("#bookloans input[name='isbn']").val().trim();
 		var card_id = $("#bookloans input[name='card_id']").val().trim();
 		if(isbn == "" || card_id == ""){
@@ -134,10 +136,53 @@ $("document").ready(function(){
 				}
 			});				
 		}
+	});
+
+
+	$("#bookloans .checkin button[value='search']").click(function(){
+		var content = $("#bookloans input[name='searchbar']").val().trim();
+		if(content != ""){
+			$.ajax({
+				url:"checkIn.php",
+				data: {'data':content,'select':""},
+				method: "post",
+				dataType: "json",
+				success: function(response){
+					$("#bookloans .message").html(response.error);
+					$("#bookloans .result").html(response.result);
+				},
+				error: function(){
+					alert("Error: cannot link checkIn.php.");
+				}
+			});
+		}
+	});
+
+	$("#bookloans .checkin button[value='checkin']").click(function(){
+		var select = 0;
+		$("#bookloans .result input[type='radio']").each(function(){
+			if($(this).prop("checked")){
+				select = $(this).val();
+				$(this).parent().parent().remove();
+			}
+		});
+		if(select != 0){
+			$.ajax({
+				url:"checkIn.php",
+				data: {'data':"",'select':select},
+				method: "post",
+				dataType: "json",
+				success: function(response){
+					$("#bookloans .message").html(response.error);
+				},
+				error: function(){
+					alert("Error: cannot link checkIn.php.");
+				}				
+			});
+		}
 
 
 	});
-
 
 
 

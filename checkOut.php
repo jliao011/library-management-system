@@ -8,7 +8,7 @@
 	$isbn = mysqli_real_escape_string($mysql,$_POST['isbn']);
 	$card_id = mysqli_real_escape_string($mysql,$_POST['card_id']);
 
-	$queryNo = "SELECT * FROM BOOK_LOANS WHERE card_id = '$card_id';";
+	$queryNo = "SELECT * FROM BOOK_LOANS WHERE card_id = '$card_id' AND date_in IS NULL;";
 	$queryAvailable = "SELECT * FROM BOOK JOIN BOOK_LOANS ON BOOK.isbn=BOOK_LOANS.isbn WHERE BOOK_LOANS.date_in IS NULL 
 	              AND BOOK.isbn = '".$isbn."';";
 	$number = mysqli_query($mysql,$queryNo);
@@ -18,7 +18,7 @@
 	}elseif(mysqli_num_rows($available) != 0){
 		$message .= "This book is not available now.";
 	}else{
-		$queryID = "SELECT COUNT(*) AS num FROM BOOK_LOANS GROUP BY card_id;";
+		$queryID = "SELECT COUNT(*) AS num FROM BOOK_LOANS;";
 		$result = mysqli_query($mysql,$queryID);
 		$result = mysqli_fetch_array($result);
 		$loan_id = $result['num'] + 1;
