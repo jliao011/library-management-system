@@ -181,9 +181,80 @@ $("document").ready(function(){
 			});
 		}
 
+	});
+
+	$("#fines button[value='dayelapse']").click(function(){
+		var dayelapse = $("#fines input[name='dayelapse']").val();
+		dayelapse ++;
+		$("#fines input[name='dayelapse']").val(dayelapse);
+	});
+
+	$("#fines button[value='reset']").click(function(){
+		$("#fines input[name='dayelapse']").val("");
+		$("#fines .result").html("");
+		$.ajax({
+			url:"fines.php",
+			data: {'menu':'reset'},
+			method: "post",
+			dataType: 'json',
+			success: function(response){
+				$("#fines .message").html(response.error);
+			},
+			error: function(){
+				alert("Error: cannot link fines.php.");
+			}				
+		});
+
 
 	});
 
+	$("#fines button[value='refresh']").click(function(){
+		var dayelapse = $("#fines input[name='dayelapse']").val();
+		var card_id = $("#fines input[name='card_id']").val().trim();
+		$.ajax({
+			url:"fines.php",
+			data: {'dayelapse':dayelapse,'menu':'refresh','card_id':card_id},
+			method: "post",
+			dataType: 'json',
+			success: function(response){
+				$("#fines .message").html(response.error);
+				$("#fines .result").html(response.result);
+			},
+			error: function(){
+				alert("Error: cannot link fines.php.");
+			}				
+		});
+
+	});
+
+	$("#fines button[value='pay']").click(function(){
+		var select = 0;
+		var paid = 0;
+		$("#fines .result input[type='radio']").each(function(){
+			if($(this).prop("checked")){
+				select = $(this).val();
+				paid = $(this).parent().prev().text();
+				$(this).parent().parent().hide();
+			}
+		});
+		var total = $("#fines .result td[name = 'total']").text();
+		$("#fines .result td[name = 'total']").text((total-paid).toFixed(2));
+		
+		if(select != 0){
+			$.ajax({
+				url:"fines.php",
+				data: {'menu':'pay','loan_id':select},
+				method: "post",
+				dataType: "json",
+				success: function(response){
+					$("#fines .message").html(response.error);
+				},
+				error: function(){
+					alert("Error: cannot link checkIn.php.");
+				}				
+			});
+		}		
+	});
 
 
 

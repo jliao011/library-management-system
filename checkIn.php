@@ -33,7 +33,7 @@
 			$result .= "<td>".$tuple['bname']."</td>";
 			$result .= "<td>".$tuple['date_out']."</td>";
 			$result .= "<td>".$tuple['due_date']."</td>";
-			$result .= "<td><input type='radio' name='checkin' value='".$tuple['loan_id']."''></td>";
+			$result .= "<td><input type='radio' name='checkin' value='".$tuple['loan_id']."'></td>";
 			$result .= "</tr>";
 		}
 		$result .= "</table><br/>";
