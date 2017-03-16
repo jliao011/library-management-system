@@ -14,25 +14,25 @@
 				<li class="home">home</li>
 				<li class="booksearch">book search</li>
 				<li class="bookloans">book loans</li>
-				<li class="borrower">borrower</li>
 				<li class="fines">fines</li>
+				<li class="borrower">borrower</li>
 			</ul>			
 		</div>
 
 	</header>
 
 	<div id="main">
-	<button type="button" class="test">test link</button><div id="testdiv"></div>
+	<button type="button" class="clear">Clear Page</button>
 		
 		<div class="main" id="home">
-			<h2>home page</h2>
-			<button type="button" class="submit">load data</button>
+			<div class="input">
+				<button type="button" class="submit">load data</button>
+			</div>
 			<hr/><div class="message"></div><hr/>		
 		</div>
 
 
 		<div class="main" id="booksearch">
-			<h2>book search</h2>
 			<div class="searchbar">
 				<h3>Input ISBN, title, and/ or Author(s) separated by '*' to search:<br/></h3>
 				<input type="text" name="searchbar" style="width: 80%;">
@@ -44,7 +44,6 @@
 
 
 		<div class="main" id="bookloans">
-			<h2>book loans</h2>
 			<div class="manu">
 				<ul>
 					<li class="checkout">Check Out a Book</li>
@@ -65,18 +64,14 @@
 				<div class="result">
 					
 				</div>
+				<button class="submit" value="dayelapse">Add Days: </button>
+				<input type="text" name="dayelapse" disabled="true" value="0">
 				<button type='button' class='submit' value='checkin'>Check In</button>
 			</div>
-
-
-
-
-
 		</div>
 
 
 		<div class="main" id="borrower">
-			<h2>borrower</h2>
 			<h3>Create a new borrower:</h3>
 			<hr/><div class="message"></div><hr/>
 			<div class="input">
@@ -95,7 +90,6 @@
 
 
 		<div class="main" id="fines">
-			<h2>fines</h2>
 			<div class="input">
 				<button class="submit" value="dayelapse">Add Days: </button>
 				<input type="text" name="dayelapse" disabled="true" value="0">
@@ -111,13 +105,9 @@
 				<br/><button type='button' class='submit' value='pay'>Pay Fines</button>
 			</div>
 		</div>
-
-
 		
 	</div>
 	<footer></footer>
-
-
 
 
 </body>

@@ -5,7 +5,7 @@
 	if (mysqli_connect_errno()){
 		$error .= "Failed to connect to MySQL: ".mysqli_connect_error()."<br/>";
 	}
-// date_add(curdate(),interval $dayelapse day) > due_date
+
 	if($_POST['menu'] == 'reset'){
 		$query = "DELETE FROM FINES;";
 		mysqli_query($mysql,$query);
@@ -70,7 +70,7 @@
 		$result .= "<td name='total'>".$tuple['fine']."</td>";
 		$result .= "</tr></table>";
 
-		$query = "SELECT BOOK_LOANS.loan_id,BOOK_LOANS.date_out,BOOK_LOANS.due_date,BOOK_LOANS.date_in,FINES.fine_amt FROM BOOK_LOANS JOIN FINES ON BOOK_LOANS.loan_id=FINES.loan_id WHERE FINES.paid = 0 AND BOOK_LOANS.card_id = $card_id;";
+		$query = "SELECT BOOK_LOANS.loan_id,BOOK_LOANS.date_out,BOOK_LOANS.due_date,BOOK_LOANS.date_in,FINES.fine_amt FROM BOOK_LOANS JOIN FINES ON BOOK_LOANS.loan_id=FINES.loan_id WHERE FINES.paid = 0 AND BOOK_LOANS.card_id = '".$card_id."';";
 		$result .= "<br/><table><tr><th>loan ID</th><th>date out</th><th>due date</th><th>date in</th><th>fine</th><th>pay</th></tr>";
 		$fines = mysqli_query($mysql,$query);
 		$num = mysqli_num_rows($fines);
@@ -93,7 +93,7 @@
 		$date = mysqli_fetch_array($date);
 		$date = $date['today'];
 		if($error == ""){
-			$error = "Current date ".$date.": ".$num." record for card ID ".$card_id." found.";
+			$error = "Current date ".$date.": ".$num." record(s) for card ID ".$card_id." found.";
 		}
 
 
@@ -120,7 +120,6 @@
 			$error .= "<td>".$tuple['paid']."</td></tr></table>";
 		}	
 	}
-
 
 
 	$message = array('error'=>$error,'result'=>$result);

@@ -5,10 +5,6 @@
 	if (mysqli_connect_errno()){
 		$error .= "Failed to connect to MySQL: ".mysqli_connect_error()."<br/>";
 	}
-// 0393045218*The Mummies Of Urumchi*Elizabeth Wayland Barber*E. J. W. Barber     000001,850-47-3740
-
-// insert into book_loans values(1,'0393045218','000001',curdate(),date_add(curdate(),interval 14 day),null);
-// select * from book,book_authors,authors,borrower,book_loans where book.isbn=book_authors.isbn and authors.author_id=book_authors.author_id and book_loans.isbn = book.isbn and book_loans.card_id=borrower.card_id;
 
 	$keys = mysqli_real_escape_string($mysql,$_POST['data']);
 	$keys = explode("*",$keys);

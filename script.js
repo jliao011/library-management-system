@@ -14,9 +14,6 @@ $("document").ready(function(){
 	$("header li").click(function(){
 		var li_class = $(this).attr('class');
 		$("div.main").each(function(){
-			$("div.message").text("");
-			$("div.result").text("");
-			$("div.main input").val("");
 			if($(this).attr('id') == li_class){
 				$(this).show();
 			}else{
@@ -103,19 +100,16 @@ $("document").ready(function(){
 
 
 	$("div.checkin").hide();
+	var checkinMess = "", checkoutMess = "";
 	$("li.checkout").click(function(){
 		$("div.checkout").show();
 		$("div.checkin").hide();
-		$("#bookloans .message").html("");
-		$("#bookloans .result").html("");
-		$("#bookloans input").val("");
+		$("#bookloans .message").html(checkoutMess);
 	});
 	$("li.checkin").click(function(){
 		$("div.checkin").show();
 		$("div.checkout").hide();
-		$("#bookloans .message").html("");
-		$("#bookloans .result").html("");
-		$("#bookloans input").val("");
+		$("#bookloans .message").html(checkinMess);
 	});
 
 	$("#bookloans .checkout button.submit").click(function(){
@@ -130,6 +124,7 @@ $("document").ready(function(){
 				method: "post",
 				success: function(response){
 					$("#bookloans .message").html(response);
+					checkoutMess = response;
 				},
 				error: function(){
 					alert("Error: cannot link checkOut.php.");
@@ -150,12 +145,19 @@ $("document").ready(function(){
 				success: function(response){
 					$("#bookloans .message").html(response.error);
 					$("#bookloans .result").html(response.result);
+					checkinMess = response.error;
 				},
 				error: function(){
 					alert("Error: cannot link checkIn.php.");
 				}
 			});
 		}
+	});
+
+	$("#bookloans button[value='dayelapse']").click(function(){
+		var dayelapse = $("#bookloans input[name='dayelapse']").val();
+		dayelapse ++;
+		$("#bookloans input[name='dayelapse']").val(dayelapse);
 	});
 
 	$("#bookloans .checkin button[value='checkin']").click(function(){
@@ -169,11 +171,13 @@ $("document").ready(function(){
 		if(select != 0){
 			$.ajax({
 				url:"checkIn.php",
-				data: {'data':"",'select':select},
+				data: {'data':"",'select':select,'dayelapse':$("#bookloans input[name='dayelapse']").val()},
 				method: "post",
 				dataType: "json",
 				success: function(response){
 					$("#bookloans .message").html(response.error);
+					checkinMess = response.error;
+					$("#bookloans input[name='dayelapse']").val(0);
 				},
 				error: function(){
 					alert("Error: cannot link checkIn.php.");
@@ -210,20 +214,23 @@ $("document").ready(function(){
 
 	$("#fines button[value='refresh']").click(function(){
 		var dayelapse = $("#fines input[name='dayelapse']").val();
+		if(dayelapse == ""){dayelapse = 0;}
 		var card_id = $("#fines input[name='card_id']").val().trim();
-		$.ajax({
-			url:"fines.php",
-			data: {'dayelapse':dayelapse,'menu':'refresh','card_id':card_id},
-			method: "post",
-			dataType: 'json',
-			success: function(response){
-				$("#fines .message").html(response.error);
-				$("#fines .result").html(response.result);
-			},
-			error: function(){
-				alert("Error: cannot link fines.php.");
-			}				
-		});
+		if(card_id != ""){
+			$.ajax({
+				url:"fines.php",
+				data: {'dayelapse':dayelapse,'menu':'refresh','card_id':card_id},
+				method: "post",
+				dataType: 'json',
+				success: function(response){
+					$("#fines .message").html(response.error);
+					$("#fines .result").html(response.result);
+				},
+				error: function(){
+					alert("Error: cannot link fines.php.");
+				}				
+			});			
+		}
 
 	});
 
@@ -256,12 +263,10 @@ $("document").ready(function(){
 		}		
 	});
 
-
-
-
-
-	$("button.test").click(function(){
-		$("#testdiv").text("success");
+	$("button.clear").click(function(){
+		$("div.message").text("");
+		$("div.result").text("");
+		$("div.main input").val("");
 	});
 });
 

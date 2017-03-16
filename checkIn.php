@@ -21,7 +21,6 @@
 			}
 		}	
 		$query .= ");";
-	// 0425176428* 000001 * jason
 		$result = "<table><tr><th>loan ID</th><th>isbn</th><th>card ID</th><th>borrower</th><th>date out</th><th>due date</th><th>select</th></tr>";
 		$loan = mysqli_query($mysql,$query);
 		$num = mysqli_num_rows($loan);
@@ -37,14 +36,14 @@
 			$result .= "</tr>";
 		}
 		$result .= "</table><br/>";
-		// $result .= "<button type='button' class='submit' value='checkin'>Check In</button>";
 		if($error == "Error: "){
 			$error = $num." loan result(s) found.";
 		}
 
 	}else{
 		$loan_id = $_POST['select'];
-		$query = "UPDATE BOOK_LOANS SET date_in = curdate() WHERE loan_id = $loan_id;";
+		$dayelapse = $_POST['dayelapse'];
+		$query = "UPDATE BOOK_LOANS SET date_in = date_add(curdate(),interval $dayelapse day) WHERE loan_id = $loan_id;";
 		if (!mysqli_query($mysql,$query)) {
 			$error .= $query.mysqli_error($mysql)."<br/>";
 		}

@@ -39,11 +39,6 @@
 		}
 	}
 
-// insert into book_loans values(1,'0393045218','000001',curdate(),date_add(curdate(),interval 14 day),null);
-
-
-
-
 
 	echo $message;
 ?>

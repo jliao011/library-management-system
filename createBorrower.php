@@ -44,8 +44,6 @@
 		}
 
 	}
-	// echo "num is ".$card_id."<br>";
-	// echo $ssn.",".$bname.",".$address.",".$phone;
-	// echo "<br>".$query;
+
 
 ?>
